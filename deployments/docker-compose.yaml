@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:14
+    networks:
+      - mstpl
+    restart: always
+    environment:
+      POSTGRES_DB: talky
+      POSTGRES_USER: talky
+      POSTGRES_PASSWORD: 1
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    networks:
+      - mstpl
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@mail.com
+      PGADMIN_DEFAULT_PASSWORD: 1
+    ports:
+      - 8082:80
+
+networks:
+  mstpl:
+    driver: bridge
